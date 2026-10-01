@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- Page template: copy and rename this file, set the allowed roles in initPage([...]), and add the page to NAV_LINKS in js/auth.js -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page name | CISTM Equipment Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header id="app-header"></header>
+
+    <main class="container">
+        <div class="page-head">
+            <h1>Page name</h1>
+            <p>One sentence that tells the person what this page is for.</p>
+        </div>
+
+        <div id="message" class="msg" role="status" hidden></div>
+
+        <!-- Page content goes here -->
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        (async function () {
+            const profile = await initPage(["admin", "staff"]);
+            if (!profile) return;
+            // Example: const { data, error } = await db.from("equipment").select("*");
+        })();
+    </script>
+</body>
+</html>

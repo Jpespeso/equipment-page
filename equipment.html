@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f2f5f8">
+    <title>Equipment List | CISTM Equipment Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/equipment.css">
+</head>
+<body class="equipment-page">
+    <header id="app-header"></header>
+
+    <main class="container equipment-container">
+        <div id="message" class="msg" role="status" aria-live="polite" hidden></div>
+
+        <section id="list-view" aria-labelledby="page-title">
+            <div class="equipment-heading">
+                <div>
+                    <p class="eyebrow">INVENTORY MANAGEMENT</p>
+                    <div class="head-row">
+                        <h1 id="page-title">Equipment List</h1>
+                        <span id="equipment-count" class="equipment-count">Loading...</span>
+                    </div>
+                    <p class="equipment-subtitle">Keep track of your equipment and its current status.</p>
+                </div>
+                <button id="add-equipment" class="btn add-button" type="button" hidden>
+                    <span aria-hidden="true">+</span>
+                    Add New Equipment
+                </button>
+            </div>
+
+            <section class="inventory-card" aria-label="Equipment inventory">
+                <div class="inventory-toolbar">
+                    <div>
+                        <h2>All equipment</h2>
+                        <p id="inventory-summary" class="inventory-summary">Loading equipment...</p>
+                    </div>
+                    <label class="search-box">
+                        <span class="visually-hidden">Search equipment</span>
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                            <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                            <path d="m16 16 4.5 4.5"></path>
+                        </svg>
+                        <input id="equipment-search" type="search" placeholder="Search equipment..." autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="equipment-table-wrap">
+                    <table class="equipment-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Equipment ID</th>
+                                <th scope="col">Equipment code</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Condition status</th>
+                                <th scope="col">Availability status</th>
+                                <th scope="col">Date added</th>
+                                <th scope="col" id="action-heading" hidden>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="equipment-body">
+                            <tr><td colspan="10" class="table-feedback">Loading equipment...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="mobile-equipment-list" class="mobile-equipment-list" aria-label="Equipment inventory"></div>
+            </section>
+        </section>
+
+        <section id="form-view" class="form-view" aria-labelledby="form-title" hidden>
+            <button id="back-to-list" class="back-link" type="button">
+                <span aria-hidden="true">←</span> Back to equipment list
+            </button>
+            <div class="form-heading">
+                <p class="eyebrow">INVENTORY MANAGEMENT</p>
+                <h1 id="form-title" tabindex="-1">Add New Equipment</h1>
+                <p id="form-description">Enter the details below to add equipment to your inventory.</p>
+            </div>
+            <form id="equipment-form" class="equipment-form" novalidate>
+                <div id="form-error" class="form-error" role="alert" tabindex="-1" hidden></div>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="equipment-name">Equipment name <span aria-hidden="true">*</span></label>
+                        <input id="equipment-name" name="name" type="text" maxlength="120" autocomplete="off" required aria-describedby="name-error">
+                        <span id="name-error" class="field-error" hidden></span>
+                    </div>
+                    <div class="field">
+                        <label for="equipment-code">Equipment ID <span aria-hidden="true">*</span></label>
+                        <input id="equipment-code" name="equipment_code" type="text" maxlength="80" autocomplete="off" required aria-describedby="code-hint code-error">
+                        <p id="code-hint" class="field-hint">Use a unique ID, such as CISTM-PC-001.</p>
+                        <span id="code-error" class="field-error" hidden></span>
+                    </div>
+                    <div class="field">
+                        <label for="equipment-category">Category <span aria-hidden="true">*</span></label>
+                        <input id="equipment-category" name="category" type="text" maxlength="100" autocomplete="off" required aria-describedby="category-error">
+                        <span id="category-error" class="field-error" hidden></span>
+                    </div>
+                    <div class="field">
+                        <label for="equipment-quantity">Quantity <span aria-hidden="true">*</span></label>
+                        <input id="equipment-quantity" name="quantity" type="number" min="0" step="1" inputmode="numeric" required aria-describedby="quantity-hint quantity-error">
+                        <p id="quantity-hint" class="field-hint">Enter a whole number of zero or more.</p>
+                        <span id="quantity-error" class="field-error" hidden></span>
+                    </div>
+                    <div class="field">
+                        <label for="equipment-location">Location <span aria-hidden="true">*</span></label>
+                        <input id="equipment-location" name="location" type="text" maxlength="160" autocomplete="off" required aria-describedby="location-error">
+                        <span id="location-error" class="field-error" hidden></span>
+                    </div>
+                    <div class="field">
+                        <label for="equipment-condition">Condition status <span aria-hidden="true">*</span></label>
+                        <select id="equipment-condition" name="condition_status" required aria-describedby="condition-error">
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="poor">Poor</option>
+                        </select>
+                        <span id="condition-error" class="field-error" hidden></span>
+                    </div>
+                    <div class="field field-status">
+                        <label for="equipment-status">Status <span aria-hidden="true">*</span></label>
+                        <select id="equipment-status" name="availability_status" required aria-describedby="status-error">
+                            <option value="available">Available</option>
+                            <option value="in_use">In use</option>
+                            <option value="under_repair">Under repair</option>
+                            <option value="defective">Defective</option>
+                        </select>
+                        <span id="status-error" class="field-error" hidden></span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button id="cancel-form" class="btn btn-secondary" type="button">Cancel</button>
+                    <button id="save-equipment" class="btn" type="submit">Save equipment</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <dialog id="confirm-dialog" class="equipment-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+        <div class="dialog-mark" aria-hidden="true">?</div>
+        <h2 id="confirm-title">Confirm save</h2>
+        <p id="confirm-description">Are you sure you want to save these changes?</p>
+        <div class="dialog-actions">
+            <button id="cancel-confirm" class="btn btn-secondary" type="button">Go back</button>
+            <button id="approve-confirm" class="btn" type="button">Confirm save</button>
+        </div>
+    </dialog>
+
+    <dialog id="delete-dialog" class="equipment-dialog delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-description">
+        <div class="dialog-mark" aria-hidden="true">!</div>
+        <h2 id="delete-title">Delete equipment?</h2>
+        <p id="delete-description">This equipment record will be permanently deleted.</p>
+        <div class="dialog-actions">
+            <button id="cancel-delete" class="btn btn-secondary" type="button">Cancel</button>
+            <button id="confirm-delete" class="btn btn-danger" type="button">Delete equipment</button>
+        </div>
+    </dialog>
+
+    <dialog id="success-dialog" class="equipment-dialog success-dialog" aria-labelledby="success-title" aria-describedby="success-description">
+        <div class="dialog-mark" aria-hidden="true">✓</div>
+        <h2 id="success-title">Saved successfully</h2>
+        <p id="success-description">Your equipment has been added.</p>
+        <div class="dialog-actions">
+            <button id="dismiss-success" class="btn" type="button">Return to equipment list</button>
+        </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/equipment.js"></script>
+</body>
+</html>

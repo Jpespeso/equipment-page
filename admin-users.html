@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Users | CISTM Equipment Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header id="app-header"></header>
+
+    <main class="container">
+        <div class="page-head">
+            <h1>Users</h1>
+            <p>Change the role of an account, then select Save. Role changes apply the next time that person opens a page.</p>
+        </div>
+
+        <div id="message" class="msg" role="status" hidden></div>
+
+        <p id="users-summary" class="summary"></p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Joined</th>
+                        <th scope="col"><span class="visually-hidden">Action</span></th>
+                    </tr>
+                </thead>
+                <tbody id="users-body">
+                    <tr><td colspan="5" class="muted">Loading accounts...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin-users.js"></script>
+</body>
+</html>
